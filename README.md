@@ -10,11 +10,11 @@ My thought behind it was to create the UI quickly and to focus more on the algor
 
 ---
 ### Navbar
-The navbar component was copied from MaterialUI's website and adjusted to fit my specific needs in the app.
-I have adjusted it to present the current page the user is one as a headline on the right, the name of the app on the left side and a button on the far left side to toggle the side nav which contains the links to navigate to other pages. 
+The navbar component was copied from MaterialUI's website and adjusted to fit my specific needs of the app.
+I have adjusted it to present the current page the user is on as a headline, the name of the app and a button to toggle the side nav which contains the links to navigate to other pages. 
 
 ---
 ### Navigation
 I have created RouterConfig component to handle all the routing including to navigate to a 404 page in case of a non existing path.
-I think it is better to separate the code into different part according to their respective responsibility.
+I think it is better to separate the code into different part according to their respective responsibilities.
 
