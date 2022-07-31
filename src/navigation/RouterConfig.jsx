@@ -7,7 +7,7 @@ import { SavedSets, Home, CreatingSets } from "pages";
 export const RouterConfig = () => {
     console.log();
     return (
-        <div>
+        <div style={{ margin: '25px', marginTop: '75px' }}>
             <Routes>
                 <Route exact path={ROOT} element={<Home />} />
                 <Route exact path={CREATING_SETS} element={<CreatingSets />} />
