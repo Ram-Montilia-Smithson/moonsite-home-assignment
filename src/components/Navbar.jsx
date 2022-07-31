@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -17,7 +16,11 @@ import Typography from '@mui/material/Typography';
 
 export default function Navbar(props) {
 
+    const [currentPage,setCurrentPage] = useState('Home')
+
     const navigate = useNavigate();
+
+
     const drawerWidth = 240;
     const navItems = [
         { title: 'Home', address: '/' },
@@ -32,8 +35,9 @@ export default function Navbar(props) {
         setMobileOpen(!mobileOpen);
     };
 
-    const handleNavigate = (address) => {
-        navigate(address, { replace: true })
+    const handleNavigate = (path) => {
+        navigate(path.address, { replace: true })
+        setCurrentPage(path.title)
     }
 
     const drawer = (
@@ -47,7 +51,7 @@ export default function Navbar(props) {
                     <ListItem key={item.title} disablePadding>
                         <ListItemButton
                             sx={{ textAlign: 'center' }}
-                            onClick={() => handleNavigate(item.address)}
+                            onClick={() => handleNavigate(item)}
                         >
                             <ListItemText primary={item.title} />
                         </ListItemButton>
@@ -70,28 +74,25 @@ export default function Navbar(props) {
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: 'none' } }}
+                            sx={{ mr: 2, display: { sm: 'block' } }}
                         >
                             <MenuIcon style={{marginRight: '10px'}} />
-                            Clothing Sets Picking
                         </IconButton>
                         <Typography
                             variant="h6"
                             component="div"
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                            sx={{ flexGrow: 1, display: { sm: 'block' } }}
                         >
                             Clothing Sets Picking
                         </Typography>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            {navItems.map((item) => (
-                                <Button
-                                    key={item.title}
-                                    sx={{ color: '#fff' }}
-                                    onClick={() => handleNavigate(item.address)}
-                                >
-                                    {item.title}
-                                </Button>
-                            ))}
+                        <Box sx={{ display: { sm: 'block' } }}>
+
+                            <Typography
+                                variant='h4'
+                                sx={{ flexGrow: 1, display: { sm: 'block' } }}
+                            >
+                                {currentPage}
+                            </Typography>
                         </Box>
                     </Toolbar>
                 </AppBar>
@@ -105,7 +106,7 @@ export default function Navbar(props) {
                             keepMounted: true, // Better open performance on mobile.
                         }}
                         sx={{
-                            display: { xs: 'block', sm: 'none' },
+                            display: { xs: 'block', sm: 'block' },
                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}
                     >
