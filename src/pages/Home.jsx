@@ -5,18 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { selectPants, selectShirts, selectShoes } from 'redux/clothingReducer';
 import { selectSavedSets } from 'redux/savesSetsReducer';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import { changeCurrentClothingType, selectCurrentClothingType } from 'redux/currentSetReducer';
-
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.primary.contrastText,
-}));
+import { Item } from 'components';
 
 export default function Home() {
 

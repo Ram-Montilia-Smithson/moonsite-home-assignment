@@ -1,3 +1,4 @@
+import {ClothingItem} from 'components';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPants, selectShirts, selectShoes } from 'redux/clothingReducer';
@@ -36,7 +37,7 @@ export default function CreatingSets() {
       <div>
         {clothes.map((item) => {
           return (
-            <div>{JSON.stringify(item)}</div>
+            <ClothingItem item={item} />
           )
         })}
       </div>
