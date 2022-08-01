@@ -1,31 +1,83 @@
-import { SAVED_SETS } from 'navigation/Constants';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchClothes } from 'utils/APIUtils';
+import { Button, Grid } from '@mui/material';
+import { CREATING_SETS, SAVED_SETS } from 'navigation/Constants';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { selectPants, selectShirts, selectShoes } from 'redux/clothingReducer';
+import { selectSavedSets } from 'redux/savesSetsReducer';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import { changeCurrentClothingType, selectCurrentClothingType } from 'redux/currentSetReducer';
+
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.primary.main,
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.primary.contrastText,
+}));
 
 export default function Home() {
 
-    const [clothes, setClothes] = useState([])
+    const savedSets = useSelector(selectSavedSets);
+    const shirts = useSelector(selectShirts);
+    const pants = useSelector(selectPants);
+    const shoes = useSelector(selectShoes);
+    const clothingType = useSelector(selectCurrentClothingType);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        logClothes()
-    }, [])
 
-    const logClothes = async () => {
-        setClothes(await fetchClothes())
+    const pickingClothes = (type) => {
+        dispatch(changeCurrentClothingType(type))
+        navigate(CREATING_SETS, { replace: true })
     }
-    
 
     return (
         <div>
-            <section style={{height:'30vh'}}>
-                <Link to={SAVED_SETS}>Saved Sets</Link>
+            <section style={{ height: '30vh' }}>
+                <Link to={SAVED_SETS}>Saved Sets ({savedSets.length})</Link>
             </section>
-            {clothes && clothes.map(element => {
-                return (
-                    <span key={element.id}>{JSON.stringify(element)}</span>
-                )
-            })}
+            <section style={{ height: '30vh' }}>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Item>Shirts ({shirts.length })</Item>
+                    </Grid>
+                    <Grid item xs>
+                        <Item>Pants ({pants.length})</Item>
+                    </Grid>
+                    <Grid item xs>
+                        <Item>Shoes ({shoes.length})</Item>
+                    </Grid>
+                </Grid>
+            </section>
+            <section style={{ height: '30vh', border: 'solid black 1px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Button 
+                    onClick={() => pickingClothes('shirt')} 
+                    style={{margin: '10px'}} 
+                    variant="contained"
+                    disabled={clothingType==='shirt'}
+                >
+                    Pick Shirt
+                </Button>
+                <Button 
+                    onClick={() => pickingClothes('pants')} 
+                    style={{margin: '10px'}} 
+                    variant="contained"
+                    disabled={clothingType === 'pants'}
+                >
+                    Pick Pants
+                </Button>
+                <Button 
+                    onClick={() => pickingClothes('shoes')} 
+                    style={{margin: '10px'}} 
+                    variant="contained"
+                    disabled={clothingType === 'shoes'}
+                >
+                    Pick Shoes
+                </Button>
+            </section>
         </div>
     )
 }
