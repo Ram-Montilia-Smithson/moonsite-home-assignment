@@ -3,9 +3,9 @@ import { CREATING_SETS, SAVED_SETS } from 'navigation/Constants';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { selectPants, selectShirts, selectShoes } from 'redux/clothingReducer';
-import { selectSavedSets } from 'redux/savesSetsReducer';
-import { changeCurrentClothingType, selectCurrentClothingType } from 'redux/currentSetReducer';
+import {
+    selectPants, selectSavedSets, selectShirts, selectShoes, changeCurrentClothingType, selectCurrentClothingType
+} from 'redux/clothingReducer';
 import { Item } from 'components';
 
 export default function Home() {
