@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { CREATING_SETS, ROOT, SAVED_SETS } from 'navigation/Constants';
 
 export default function Navbar(props) {
 
@@ -20,12 +21,18 @@ export default function Navbar(props) {
 
     const navigate = useNavigate();
 
+    let location = useLocation();
+
+    useEffect(() => {
+        const navItem = navItems.find(item => item.address === location.pathname)
+        setCurrentPage(navItem.title)
+    }, [location]);
 
     const drawerWidth = 240;
     const navItems = [
-        { title: 'Home', address: '/' },
-        { title: 'New Set', address: '/creating-sets' },
-        { title: 'Saved Sets', address: '/saved-sets' }
+        { title: 'Home', address: ROOT },
+        { title: 'New Set', address: CREATING_SETS },
+        { title: 'Saved Sets', address: SAVED_SETS }
     ];
 
     const { window } = props;
@@ -89,7 +96,7 @@ export default function Navbar(props) {
 
                             <Typography
                                 variant='h4'
-                                sx={{ flexGrow: 1, display: { sm: 'block' } }}
+                                sx={{ display: { sm: 'block' } }}
                             >
                                 {currentPage}
                             </Typography>
