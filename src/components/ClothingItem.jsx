@@ -25,39 +25,34 @@ export default function ClothingItem({ item }) {
     }
 
     return (
-        <span style={{ margin: '20px' }}>
-            <Card
-                sx={{ display: 'inline-flex', width: 160, height: 180, padding: '5px', margin: '10px', flexDirection: 'column' }}
-            >
-                <Typography variant="h6">
-                    {item.brand}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <CardContent sx={{ flex: '1 0 auto' }}>
-                            {/* <Typography component="div" variant="h6">
-                                {item.brand}
-                            </Typography> */}
-                            <Typography variant="subtitle1" color="text.secondary" component="div">
-                                {item.type}
-                            </Typography>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">
-                                Size: {item.size}
-                            </Typography>
-                        </CardContent>
-                        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">
-                                Color:
-                            </Typography>
-                            <Item style={{ backgroundColor: item.color, border: item.color === 'white' ? 'black solid 1px' : '', margin: '5px' }} variant='contained' size="small"></Item>
-                        </Box>
+        <Card
+            sx={{ display: 'inline-flex', width: 150, height: 170, padding: '5px', margin: '5px', flexDirection: 'column' }}
+        >
+            <Typography>
+                {item.brand}
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <CardContent sx={{ flex: '1 0 auto' }}>
+                        <Typography variant="subtitle1" component="div">
+                            {item.type}
+                        </Typography>
+                        <Typography variant="subtitle1" component="div">
+                            Size: {item.size}
+                        </Typography>
+                    </CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                        <Typography variant="subtitle1" component="div">
+                            Color:
+                        </Typography>
+                        <Item style={{ backgroundColor: item.color, border: item.color === 'white' ? 'black solid 1px' : '', margin: '5px' }} variant='contained' size="small"></Item>
                     </Box>
-                    <span style={{display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px', flexDirection: 'column'}}>
-                        <img src={logo} alt='logo' style={{ width: '50px', height: '50px' }} />
-                        <Button onClick={() => handleItemPicking(item)} style={{width: '50px'}} variant='contained'>Pick Item</Button>
-                    </span>
                 </Box>
-            </Card>
-        </span>
+                <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px', flexDirection: 'column' }}>
+                    <img src={logo} alt='logo' style={{ width: '50px', height: '50px' }} />
+                    <Button onClick={() => handleItemPicking(item)} style={{ width: '50px' }} variant='contained'>Pick Item</Button>
+                </span>
+            </Box>
+        </Card>
     )
 }

@@ -5,9 +5,8 @@ import { CREATING_SETS, ROOT, SAVED_SETS, } from "navigation/Constants";
 import { SavedSets, Home, CreatingSets } from "pages";
 
 export const RouterConfig = () => {
-    console.log();
     return (
-        <div style={{ margin: '15px', marginTop: '35px' }}>
+        <div style={{ margin: '15px', marginTop: '85px' }}>
             <Routes>
                 <Route exact path={ROOT} element={<Home />} />
                 <Route exact path={CREATING_SETS} element={<CreatingSets />} />

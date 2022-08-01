@@ -14,6 +14,9 @@ export const clothingSlice = createSlice({
     initialState,
     reducers: {
         pickingItem: (state, action) => {
+            if (!state.currentSet['shirt'] && !state.currentSet['pants'] && !state.currentSet['shoes']) {
+                state.currentSet['firstTime'] = Date.now()
+            }
             switch (action.payload.type) {
                 case 'shirt':
                     const newShirts = state.shirts.filter((element) => {
@@ -23,14 +26,14 @@ export const clothingSlice = createSlice({
                     state.currentSet['shirt'] = action.payload
                     break;
                 case 'pants':
-                    const newPants = state.shirts.filter((element) => {
+                    const newPants = state.pants.filter((element) => {
                         return element.id !== action.payload.id;
                     });
                     state.pants = newPants
                     state.currentSet['pants'] = action.payload
                     break;
                 case 'shoes':
-                    const newShoes = state.shirts.filter((element) => {
+                    const newShoes = state.shoes.filter((element) => {
                         return element.id !== action.payload.id;
                     });
                     state.shoes = newShoes
@@ -73,13 +76,22 @@ export const clothingSlice = createSlice({
             state.shoes = shoes
         },
         addNewSet: (state, action) => {
-            state.savedSets.push(action.payload)
+            state.currentSet['lastTime'] = Date.now()
+            state.savedSets.push(state.currentSet)
+            state.currentSet = {}
+            state.currentClothingType = ''
         },
         removeSet: (state, action) => {
-            const newState = state.savedSets.filter((element) => {
+            const pants = action.payload.pants
+            const shoes = action.payload.shoes
+            const shirt = action.payload.shirt
+            const newSavedSets = state.savedSets.filter((element) => {
                 return element.id !== action.payload.id;
             });
-            state.savedSets = newState
+            state.savedSets = newSavedSets
+            state.shirts.push(shirt)
+            state.pants.push(pants)
+            state.shoes.push(shoes)
         },
         changeCurrentClothingType: (state, action) => {
             state.currentClothingType = action.payload

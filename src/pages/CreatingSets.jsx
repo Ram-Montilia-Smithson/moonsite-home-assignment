@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { ClothingItem, Filter } from 'components';
-import { selectPants, selectShirts, selectShoes, selectCurrentClothingType, selectCurrentSet } from 'redux/clothingReducer';
+import { selectPants, selectShirts, selectShoes, selectCurrentClothingType, selectCurrentSet, addNewSet, changeCurrentClothingType } from 'redux/clothingReducer';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ROOT } from 'navigation/Constants';
 
 export default function CreatingSets() {
 
@@ -12,13 +14,14 @@ export default function CreatingSets() {
   const [brand, setBrand] = useState('')
   const [color, setColor] = useState('')
   const [size, setSize] = useState('')
-  
+  const navigate = useNavigate();
+
   const clothingType = useSelector(selectCurrentClothingType);
   const shirts = useSelector(selectShirts);
   const pants = useSelector(selectPants);
   const shoes = useSelector(selectShoes);
   const currentSet = useSelector(selectCurrentSet);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (clothingType === 'shoes') {
@@ -58,6 +61,10 @@ export default function CreatingSets() {
     setClothes(newClothes)
   }
   
+  const handleNewSet = () => {
+    dispatch(addNewSet())
+    navigate(ROOT, { replace: true })
+  }
 
   return (
     <div>
@@ -71,7 +78,13 @@ export default function CreatingSets() {
             />
             {/* {clothingType} */}
         </div>
-        <Button disabled={!isSetFull} variant='contained'>Pick The Set</Button>
+        <Button
+          disabled={!isSetFull}
+          onClick={() => handleNewSet()}
+          variant='contained'
+        >
+          Pick The Set
+        </Button>
       </div>
       <div>
       <div>
