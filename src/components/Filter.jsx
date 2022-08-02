@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,27 +12,27 @@ export default function Filter({ filterColor, filterSize, filterBrand, size, bra
 
   const clothingType = useSelector(selectCurrentClothingType);
   const dispatch = useDispatch();
-  
+
   const handleTypeChange = (event) => {
     dispatch(changeCurrentClothingType(event.target.value))
   };
-  
+
   const handleColorChange = (event) => {
     filterColor(event.target.value);
   };
-  
+
   const handleBrandChange = (event) => {
     filterBrand(event.target.value);
   };
-  
+
   const handleSizeChange = (event) => {
     filterSize(event.target.value);
   };
-  
+
   return (
-    <Box sx={{ border: '1px solid black', borderRadius: '5px', padding: '10px', width: '350px', margin: '10px' }}>
+    <Box sx={{ padding: '10px', width: '350px', margin: '10px' }}>
       <Typography component="div" variant="h5">Filter</Typography>
-      <FormControl style={{width: '150px', margin: '5px'}}>
+      <FormControl style={{ width: '150px', margin: '5px' }}>
         <InputLabel id="type">Type</InputLabel>
         <Select
           labelId="type"
@@ -53,6 +53,7 @@ export default function Filter({ filterColor, filterSize, filterBrand, size, bra
           label="Color"
           onChange={handleColorChange}
         >
+          <MenuItem value={''}>--Reset--</MenuItem>
           <MenuItem value={'black'}>Black</MenuItem>
           <MenuItem value={'white'}>White</MenuItem>
           <MenuItem value={'green'}>Green</MenuItem>
@@ -68,6 +69,7 @@ export default function Filter({ filterColor, filterSize, filterBrand, size, bra
           label="Brand"
           onChange={handleBrandChange}
         >
+          <MenuItem value={''}>--Reset--</MenuItem>
           <MenuItem value={'Lacoste'}>Lacoste</MenuItem>
           <MenuItem value={'Lee Cooper'}>Lee Cooper</MenuItem>
           <MenuItem value={'Tommy Hilfiger'}>Tommy Hilfiger</MenuItem>
@@ -78,53 +80,56 @@ export default function Filter({ filterColor, filterSize, filterBrand, size, bra
       {clothingType === 'shirt' ?
         <FormControl style={{ width: '150px', margin: '5px' }}>
           <InputLabel id="size">Size</InputLabel>
-              <Select
-                labelId="size"
-                value={size}
-                label="Size"
-                onChange={handleSizeChange}
-              >
-              <MenuItem value={'S'}>S</MenuItem>
-              <MenuItem value={'L'}>L</MenuItem>
-              <MenuItem value={'XL'}>XL</MenuItem>
+          <Select
+            labelId="size"
+            value={size}
+            label="Size"
+            onChange={handleSizeChange}
+          >
+            <MenuItem value={''}>--Reset--</MenuItem>
+            <MenuItem value={'S'}>S</MenuItem>
+            <MenuItem value={'L'}>L</MenuItem>
+            <MenuItem value={'XL'}>XL</MenuItem>
             <MenuItem value={'XXL'}>XXL</MenuItem>
-            </Select>
+          </Select>
         </FormControl>
         : clothingType === 'shoes' ?
           <FormControl style={{ width: '150px', margin: '5px' }}>
             <InputLabel id="size">Size</InputLabel>
-              <Select
-                labelId="size"
-                value={size}
-                label="Size"
-                onChange={handleSizeChange}
-              >
-              <MenuItem value={'37'}>37</MenuItem>
-              <MenuItem value={'39'}>39</MenuItem>
-              <MenuItem value={'43'}>43</MenuItem>
-              <MenuItem value={'45'}>45</MenuItem>
-              <MenuItem value={'46'}>46</MenuItem>
+            <Select
+              labelId="size"
+              value={size}
+              label="Size"
+              onChange={handleSizeChange}
+            >
+              <MenuItem value={''}>--Reset--</MenuItem>
+              <MenuItem value={37}>37</MenuItem>
+              <MenuItem value={39}>39</MenuItem>
+              <MenuItem value={43}>43</MenuItem>
+              <MenuItem value={45}>45</MenuItem>
+              <MenuItem value={46}>46</MenuItem>
             </Select>
           </FormControl>
-        :
+          :
           <FormControl style={{ width: '150px', margin: '5px' }}>
             <InputLabel id="size">Size</InputLabel>
-                <Select
-                  labelId="size"
-                  value={size}
-                  label="Size"
-                  onChange={handleSizeChange}
-                >
-              <MenuItem value={'30'}>30</MenuItem>
-              <MenuItem value={'31'}>31</MenuItem>
-              <MenuItem value={'32'}>32</MenuItem>
-              <MenuItem value={'34'}>34</MenuItem>
-              <MenuItem value={'35'}>35</MenuItem>
-              <MenuItem value={'36'}>36</MenuItem>
-              <MenuItem value={'39'}>39</MenuItem>
-              <MenuItem value={'42'}>42</MenuItem>
-              <MenuItem value={'43'}>43</MenuItem>
-              <MenuItem value={'48'}>48</MenuItem>
+            <Select
+              labelId="size"
+              value={size}
+              label="Size"
+              onChange={handleSizeChange}
+            >
+              <MenuItem value={''}>--Reset--</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
+              <MenuItem value={31}>31</MenuItem>
+              <MenuItem value={32}>32</MenuItem>
+              <MenuItem value={34}>34</MenuItem>
+              <MenuItem value={35}>35</MenuItem>
+              <MenuItem value={36}>36</MenuItem>
+              <MenuItem value={39}>39</MenuItem>
+              <MenuItem value={42}>42</MenuItem>
+              <MenuItem value={43}>43</MenuItem>
+              <MenuItem value={48}>48</MenuItem>
             </Select>
           </FormControl>
       }
