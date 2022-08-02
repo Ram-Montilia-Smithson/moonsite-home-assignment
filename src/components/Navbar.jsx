@@ -18,29 +18,23 @@ import { CREATING_SETS, ROOT, SAVED_SETS } from 'navigation/Constants';
 export default function Navbar(props) {
 
     const [currentPage,setCurrentPage] = useState('Home')
-
     const navigate = useNavigate();
-
     let location = useLocation();
+    const { window } = props;
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const drawerWidth = 240;
+    const container = window !== undefined ? () => window().document.body : undefined;
 
     useEffect(() => {
         const navItem = navItems.find(item => item.address === location.pathname)
         setCurrentPage(navItem.title)
     }, [location]);
 
-    const drawerWidth = 240;
     const navItems = [
         { title: 'Home', address: ROOT },
         { title: 'New Set', address: CREATING_SETS },
         { title: 'Saved Sets', address: SAVED_SETS }
     ];
-
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
 
     const handleNavigate = (path) => {
         navigate(path.address, { replace: true })
@@ -48,10 +42,8 @@ export default function Navbar(props) {
     }
 
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                Clothing Sets Picking
-            </Typography>
+        <Box onClick={() => setMobileOpen(!mobileOpen)} sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" sx={{ my: 2 }}>Clothing Sets Picking</Typography>
             <Divider />
             <List>
                 {navItems.map((item) => (
@@ -68,9 +60,6 @@ export default function Navbar(props) {
         </Box>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
-
-
     return (
         <div>
             <Box sx={{ display: 'flex' }}>
@@ -80,7 +69,7 @@ export default function Navbar(props) {
                             color="inherit"
                             aria-label="open drawer"
                             edge="start"
-                            onClick={handleDrawerToggle}
+                            onClick={() => setMobileOpen(!mobileOpen)}
                             sx={{ mr: 2, display: { sm: 'block' } }}
                         >
                             <MenuIcon style={{marginRight: '10px'}} />
@@ -108,7 +97,7 @@ export default function Navbar(props) {
                         container={container}
                         variant="temporary"
                         open={mobileOpen}
-                        onClose={handleDrawerToggle}
+                        onClose={() => setMobileOpen(!mobileOpen)}
                         ModalProps={{
                             keepMounted: true, // Better open performance on mobile.
                         }}

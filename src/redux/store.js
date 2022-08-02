@@ -4,6 +4,5 @@ import clothingReducer from "./clothingReducer";
 export default configureStore({
     reducer: {
         clothing: clothingReducer
-        // clothesSupply: clothesSupplyReducer,
     },
 });

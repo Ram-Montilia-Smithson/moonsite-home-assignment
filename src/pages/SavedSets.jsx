@@ -35,21 +35,26 @@ export default function SavedSets() {
     handleClose()
   }
 
+  const time = (start, end) => {
+    let hours = Math.floor((end - start) / 1000 / 60 / 60)
+    let minutes = Math.floor((end - start) / 1000 / 60)
+    let seconds = Math.floor((end - start) / 1000)
+    if(hours) minutes = minutes - (hours * 60)
+    if(minutes) seconds = seconds - (minutes * 60)
+    return `hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}`
+  }
 
   return (
     <div>
-      {/* {JSON.stringify(savedSets)} */}
       {savedSets.length ? savedSets.map(set => {
         return (
           <span key={set.lastTime}>
-            <ClothingItem item={set.shirt} key={set.shirt.id} />
-            <ClothingItem item={set.pants} key={set.pants.id} />
-            <ClothingItem item={set.shoes} key={set.shoes.id} />
+            <ClothingItem item={set.shirt} key={set.shirt.id} inSavedSets={true}/>
+            <ClothingItem item={set.pants} key={set.pants.id} inSavedSets={true} />
+            <ClothingItem item={set.shoes} key={set.shoes.id} inSavedSets={true} />
             <span style={{ display: 'inline-flex', width: 150, height: 170, padding: '5px', margin: '5px', flexDirection: 'column' }}>
-              <span>Time To Pick Set:</span>
-              <span> hours: {Math.floor((set.lastTime - set.firstTime) / 1000 / 60 / 60)}</span>
-              <span> minutes: {Math.floor((set.lastTime - set.firstTime) / 1000 / 60)}</span>
-              <span> seconds: {Math.floor((set.lastTime - set.firstTime) / 1000)}</span>
+              <Typography>Time To Pick Set:</Typography>
+              <Typography>{time(set.firstTime, set.lastTime)}</Typography>
               <Button onClick={() => handleModalOpen(set)} variant='contained' color='error'>Delete</Button>
             </span>
             <hr />

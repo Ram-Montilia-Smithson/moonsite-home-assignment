@@ -1,27 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Item } from 'components';
 import logo from 'static/images/logo.png'
+import shirt from 'static/images/shirt.png'
+import pants from 'static/images/pants.jpg'
+import shoes from 'static/images/shoes.jpg'
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { pickingItem, returningItem, selectCurrentSet } from 'redux/clothingReducer';
 
-export default function ClothingItem({ item }) {
+export default function ClothingItem({ item, inSavedSets }) {
+
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        changeImage()
+    }, [])
+    
 
     const currentSet = useSelector(selectCurrentSet);
     const dispatch = useDispatch();
 
-
     const handleItemPicking = (item) => {
-        if (currentSet[item.type]) {
-            dispatch(returningItem(currentSet[item.type]))
-        }
-        if (currentSet[item.type]?.id !== item.id) {
-            dispatch(pickingItem(item))
-        }
+        if (currentSet[item.type]) dispatch(returningItem(currentSet[item.type]))
+        if (currentSet[item.type]?.id !== item.id) dispatch(pickingItem(item))
+    }
+
+    const changeImage = () => {
+        if (item.type === 'shirt') setImage({ image: shirt, title: 'shirt' })
+        if (item.type === 'pants') setImage({ image: pants, title: 'pants' })
+        if (item.type === 'shoes') setImage({ image: shoes, title: 'shoes' })
     }
 
     return (
@@ -49,8 +60,8 @@ export default function ClothingItem({ item }) {
                     </Box>
                 </Box>
                 <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px', flexDirection: 'column' }}>
-                    <img src={logo} alt='logo' style={{ width: '50px', height: '50px' }} />
-                    <Button onClick={() => handleItemPicking(item)} style={{ width: '50px' }} variant='contained'>Pick Item</Button>
+                    <img src={image.image} alt={image.title} style={{ width: '50px', height: '50px' }} />
+                    {!inSavedSets && <Button onClick={() => handleItemPicking(item)} style={{ width: '50px' }} variant='contained'>Pick Item</Button>}
                 </span>
             </Box>
         </Card>
