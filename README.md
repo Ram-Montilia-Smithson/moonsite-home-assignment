@@ -61,3 +61,6 @@ The ClothingItem components does not have the picking button any more, due to th
 In this app, I have used: 
 *  ```@reduxjs/toolkit``` and ```react-redux``` to handle the state with.  
 * And ```localStorage``` to maintain the state between refreshes.
+---
+# A view of the app in action
+[moonsite_home_assignment_display.webm](https://user-images.githubusercontent.com/69187942/182436960-67c48d2e-7ad9-48dc-859e-fea25ff99408.webm)
