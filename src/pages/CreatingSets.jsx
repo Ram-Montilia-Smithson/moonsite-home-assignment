@@ -3,9 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { ClothingItem, Filter } from 'components';
 import { selectPants, selectShirts, selectShoes, selectCurrentClothingType, selectCurrentSet, addNewSet } from 'redux/clothingReducer';
-import { Typography } from '@mui/material';
+import { Box, Modal, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ROOT } from 'navigation/Constants';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 250,
+  backgroundColor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function CreatingSets() {
 
@@ -15,6 +26,8 @@ export default function CreatingSets() {
   const [color, setColor] = useState('')
   const [size, setSize] = useState('')
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
 
   const clothingType = useSelector(selectCurrentClothingType);
   const shirts = useSelector(selectShirts);
@@ -56,8 +69,13 @@ export default function CreatingSets() {
     else setIsSetFull(false)
   }, [currentSet])
 
+  const openModal = () => {
+    setOpen(true)
+  }
+  
   const handleNewSet = () => {
     dispatch(addNewSet())
+    setOpen(false)
     navigate(ROOT, { replace: true })
   }
 
@@ -70,7 +88,7 @@ export default function CreatingSets() {
           filterSize={(size) => setSize(size)}
           filterBrand={(brand) => setBrand(brand)}
         />
-        <Button disabled={!isSetFull} onClick={() => handleNewSet()} variant='contained'>
+        <Button disabled={!isSetFull} onClick={() => openModal()} variant='contained'>
           Pick The Set
         </Button>
       </div>
@@ -80,6 +98,18 @@ export default function CreatingSets() {
       {currentSet.shoes && <ClothingItem item={currentSet.shoes} key={currentSet.shoes.id} />}
       <hr />
       {filteredClothes.map(item => <ClothingItem item={item} key={item.id} />)}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="are-you-sure"
+        aria-describedby="making sure you really want to delete the set"
+      >
+        <Box sx={style}>
+          <Typography variant="h6" component="h2">Congrats on your new set!</Typography>
+          <Typography id="are-you-sure" variant="h6" component="h2">Are You Sure?</Typography>
+          <Button onClick={() => handleNewSet()} variant='contained' color='success'>Yes</Button>
+        </Box>
+      </Modal>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { CREATING_SETS, SAVED_SETS } from 'navigation/Constants';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,10 +25,11 @@ export default function Home() {
 
     return (
         <div>
-            <section style={{ height: '30vh' }}>
-                <Link to={SAVED_SETS}>Saved Sets ({savedSets.length})</Link>
+            <section style={{ height: '20%', textAlign: 'center', paddingTop: '10%' }}>
+                <Link to={SAVED_SETS}><Typography variant='h4'>Saved Sets ({savedSets.length})</Typography></Link>
             </section>
-            <section style={{ height: '30vh' }}>
+            <section style={{ height: '10%', padding: '10%' }}>
+                <Typography variant='h6'>Remaining Clothes</Typography>
                 <Grid container spacing={3}>
                     <Grid item xs>
                         <Item>Shirts ({shirts.length })</Item>
@@ -41,7 +42,7 @@ export default function Home() {
                     </Grid>
                 </Grid>
             </section>
-            <section style={{ height: '30vh', border: 'solid black 1px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <section style={{ height: '30%', display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
                 <Button 
                     onClick={() => pickingClothes('shirt')} 
                     style={{margin: '10px'}} 

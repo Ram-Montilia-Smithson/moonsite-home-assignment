@@ -86,16 +86,13 @@ export const clothingSlice = createSlice({
             window.localStorage.setItem('state', JSON.stringify(state))
         },
         removeSet: (state, action) => {
-            const pants = action.payload.pants
-            const shoes = action.payload.shoes
-            const shirt = action.payload.shirt
+            state.pants.push(action.payload.pants)
+            state.shoes.push(action.payload.shoes)
+            state.shirts.push(action.payload.shirt)
             const newSavedSets = state.savedSets.filter((element) => {
-                return element.id !== action.payload.id;
+                return element.firstTime !== action.payload.firstTime;
             });
             state.savedSets = newSavedSets
-            state.shirts.push(shirt)
-            state.pants.push(pants)
-            state.shoes.push(shoes)
             window.localStorage.setItem('state', JSON.stringify(state))
         },
         changeCurrentClothingType: (state, action) => {

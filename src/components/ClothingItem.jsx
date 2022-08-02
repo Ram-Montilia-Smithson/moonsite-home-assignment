@@ -4,7 +4,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Item } from 'components';
-import logo from 'static/images/logo.png'
 import shirt from 'static/images/shirt.png'
 import pants from 'static/images/pants.jpg'
 import shoes from 'static/images/shoes.jpg'
@@ -14,7 +13,7 @@ import { pickingItem, returningItem, selectCurrentSet } from 'redux/clothingRedu
 
 export default function ClothingItem({ item, inSavedSets }) {
 
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState({ image: '', title: '' })
 
     useEffect(() => {
         changeImage()
