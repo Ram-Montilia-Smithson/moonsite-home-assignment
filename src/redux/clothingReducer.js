@@ -42,6 +42,7 @@ export const clothingSlice = createSlice({
                 default:
                     break;
             }
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
         returningItem: (state, action) => {
             switch (action.payload.type) {
@@ -60,6 +61,7 @@ export const clothingSlice = createSlice({
                 default:
                     break;
             }
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
         initializingClothes: (state, action) => {
             const shirts = action.payload.filter((element) => {
@@ -74,12 +76,14 @@ export const clothingSlice = createSlice({
             state.shirts = shirts
             state.pants = pants
             state.shoes = shoes
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
         addNewSet: (state, action) => {
             state.currentSet['lastTime'] = Date.now()
             state.savedSets.push(state.currentSet)
             state.currentSet = {}
             state.currentClothingType = ''
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
         removeSet: (state, action) => {
             const pants = action.payload.pants
@@ -92,15 +96,25 @@ export const clothingSlice = createSlice({
             state.shirts.push(shirt)
             state.pants.push(pants)
             state.shoes.push(shoes)
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
         changeCurrentClothingType: (state, action) => {
             state.currentClothingType = action.payload
+            window.localStorage.setItem('state', JSON.stringify(state))
         },
+        setState: (state, action) => {
+            state.shirts = action.payload.shirts
+            state.pants = action.payload.pants
+            state.shoes = action.payload.shoes
+            state.savedSets = action.payload.savedSets
+            state.currentClothingType = action.payload.currentClothingType
+            state.currentSet = action.payload.currentSet
+        }
     },
 })
 
 export const {
-    pickingItem, returningItem, initializingClothes, addNewSet, removeSet, changeCurrentClothingType
+    pickingItem, returningItem, initializingClothes, addNewSet, removeSet, changeCurrentClothingType, setState
 } = clothingSlice.actions
 
 export const selectShirts = (state) => state.clothing.shirts;

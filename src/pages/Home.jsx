@@ -18,7 +18,6 @@ export default function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const pickingClothes = (type) => {
         dispatch(changeCurrentClothingType(type))
         navigate(CREATING_SETS, { replace: true })
