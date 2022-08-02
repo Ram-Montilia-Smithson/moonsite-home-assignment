@@ -44,6 +44,10 @@ export default function SavedSets() {
     return `hours: ${hours}, minutes: ${minutes}, seconds: ${seconds}`
   }
 
+  const date = (end) => {
+    return new Date(end).toLocaleDateString('en-GB');
+  }
+
   return (
     <div>
       {savedSets.length ? savedSets.map(set => {
@@ -53,6 +57,8 @@ export default function SavedSets() {
             <ClothingItem item={set.pants} key={set.pants.id} inSavedSets={true} />
             <ClothingItem item={set.shoes} key={set.shoes.id} inSavedSets={true} />
             <span style={{ display: 'inline-flex', width: 150, height: 170, padding: '5px', margin: '5px', flexDirection: 'column' }}>
+              <Typography>Date: </Typography>
+              <Typography>{date(set.lastTime)}</Typography>
               <Typography>Time To Pick Set:</Typography>
               <Typography>{time(set.firstTime, set.lastTime)}</Typography>
               <Button onClick={() => handleModalOpen(set)} variant='contained' color='error'>Delete</Button>
